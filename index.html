@@ -56,12 +56,44 @@
         .custom-marker { transition: transform 0.2s; }
         .custom-marker:hover { transform: scale(1.1); z-index: 1000 !important; }
 
+        /* 일정 방문지 사진: PC에서 풀와이드 가로 띠 방지 → 카드형 고정비율 */
+        .schedule-item.has-photo {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        @media (min-width: 768px) {
+            .schedule-item.has-photo {
+                flex-direction: row;
+                align-items: flex-start;
+                justify-content: space-between;
+                gap: 1.25rem;
+            }
+            .schedule-item.has-photo .schedule-copy {
+                flex: 1 1 auto;
+                min-width: 0;
+            }
+            .schedule-item.has-photo .schedule-media {
+                flex: 0 0 280px;
+                width: 280px;
+            }
+        }
+        .schedule-media {
+            width: 100%;
+            max-width: 360px;
+            aspect-ratio: 4 / 3;
+            border-radius: 0.85rem;
+            overflow: hidden;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+            border: 1px solid #e2e8f0;
+            background: #e2e8f0;
+        }
         .schedule-thumb {
             width: 100%;
-            height: 140px;
+            height: 100%;
             object-fit: cover;
-            border-radius: 0.75rem;
-            margin-top: 0.5rem;
+            object-position: center;
+            display: block;
         }
 
         .esg-stat-label { line-height: 1.25; word-break: keep-all; }
@@ -126,12 +158,9 @@
                 </div>
             </div>
 
-            <div class="flex items-center gap-1 shrink-0 ml-2">
-                <button onclick="window.print()" class="inline-flex items-center gap-1.5 bg-[#004098] text-white px-2.5 sm:px-3 py-1.5 rounded-lg text-[11px] sm:text-xs font-bold shadow-md hover:bg-[#002d6b] transition whitespace-nowrap">
-                    <i class="fa-solid fa-print"></i> 일정표 인쇄하기
-                </button>
-                <button onclick="shareLink()" class="p-2 text-slate-500 hover:text-[#004098]"><i class="fa-solid fa-share-nodes text-xl"></i></button>
-            </div>
+            <button onclick="shareLink()" class="shrink-0 p-2 text-slate-500 hover:text-[#004098] ml-2" aria-label="공유하기">
+                <i class="fa-solid fa-share-nodes text-xl"></i>
+            </button>
         </nav>
     </header>
 
@@ -290,23 +319,35 @@
                                 <h4 class="font-bold text-lg">09:00 남선초등학교 출발</h4>
                                 <p class="text-slate-500 text-sm mt-1">인원 파악 후 전용버스로 잠실(키자니아) 이동</p>
                             </div>
-                            <div class="relative pl-8 border-l-2 border-blue-200">
+                            <div class="relative pl-8 border-l-2 border-blue-200 schedule-item has-photo">
                                 <div class="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-indigo-400"></div>
-                                <h4 class="font-bold text-lg">13:00 키자니아 서울 (중식·체험)</h4>
-                                <p class="text-slate-500 text-sm mt-1">직업 체험과 중식을 함께하는 오후 프로그램</p>
-                                <img src="assets/images/day1-kidzania.jpg" alt="키자니아·잠실 일대" class="schedule-thumb">
+                                <div class="schedule-copy">
+                                    <h4 class="font-bold text-lg">13:00 키자니아 서울 (중식·체험)</h4>
+                                    <p class="text-slate-500 text-sm mt-1">직업 체험과 중식을 함께하는 오후 프로그램</p>
+                                </div>
+                                <div class="schedule-media">
+                                    <img src="assets/images/day1-kidzania.jpg" alt="키자니아·잠실 일대" class="schedule-thumb">
+                                </div>
                             </div>
-                            <div class="relative pl-8 border-l-2 border-blue-200">
+                            <div class="relative pl-8 border-l-2 border-blue-200 schedule-item has-photo">
                                 <div class="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-orange-500"></div>
-                                <h4 class="font-bold text-lg">17:30 석식 · 애슐리퀸즈</h4>
-                                <p class="text-slate-500 text-sm mt-1">뷔페 석식 후 공연장으로 이동</p>
-                                <img src="assets/images/day1-jamsil.jpg" alt="잠실 일대" class="schedule-thumb">
+                                <div class="schedule-copy">
+                                    <h4 class="font-bold text-lg">17:30 석식 · 애슐리퀸즈</h4>
+                                    <p class="text-slate-500 text-sm mt-1">뷔페 석식 후 공연장으로 이동</p>
+                                </div>
+                                <div class="schedule-media">
+                                    <img src="assets/images/day1-jamsil.jpg" alt="잠실 일대" class="schedule-thumb">
+                                </div>
                             </div>
-                            <div class="relative pl-8 border-l-2 border-blue-200">
+                            <div class="relative pl-8 border-l-2 border-blue-200 schedule-item has-photo">
                                 <div class="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-purple-500"></div>
-                                <h4 class="font-bold text-lg">19:30 겨울왕국 뮤지컬</h4>
-                                <p class="text-slate-500 text-sm mt-1">잠실 일대 공연장에서 뮤지컬 관람</p>
-                                <img src="assets/images/day1-musical.jpg" alt="샤롯데시어터·뮤지컬" class="schedule-thumb">
+                                <div class="schedule-copy">
+                                    <h4 class="font-bold text-lg">19:30 겨울왕국 뮤지컬</h4>
+                                    <p class="text-slate-500 text-sm mt-1">잠실 일대 공연장에서 뮤지컬 관람</p>
+                                </div>
+                                <div class="schedule-media">
+                                    <img src="assets/images/day1-musical.jpg" alt="샤롯데시어터·뮤지컬" class="schedule-thumb">
+                                </div>
                             </div>
                             <div class="bg-slate-50 p-4 rounded-lg mt-4 border border-slate-200 text-sm">
                                 🏨 <strong>21:00 밀리토피아 호텔 바이 마린 도착 · 체크인 및 휴식</strong>
@@ -338,11 +379,15 @@
                                 <h4 class="font-bold text-lg">09:00 호텔 출발</h4>
                                 <p class="text-slate-500 text-sm mt-1">체크아웃 후 잠실 롯데월드로 이동</p>
                             </div>
-                            <div class="relative pl-8 border-l-2 border-yellow-300">
+                            <div class="relative pl-8 border-l-2 border-yellow-300 schedule-item has-photo">
                                 <div class="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-orange-400"></div>
-                                <h4 class="font-bold text-lg">10:00 ~ 15:00 롯데월드 어드벤처</h4>
-                                <p class="text-slate-500 text-sm mt-1">실내외 테마파크 체험 · 중식은 현장 안내에 따름</p>
-                                <img src="assets/images/day2-lotteworld.jpg" alt="롯데월드 어드벤처" class="schedule-thumb">
+                                <div class="schedule-copy">
+                                    <h4 class="font-bold text-lg">10:00 ~ 15:00 롯데월드 어드벤처</h4>
+                                    <p class="text-slate-500 text-sm mt-1">실내외 테마파크 체험 · 중식은 현장 안내에 따름</p>
+                                </div>
+                                <div class="schedule-media">
+                                    <img src="assets/images/day2-lotteworld.jpg" alt="롯데월드 어드벤처" class="schedule-thumb">
+                                </div>
                             </div>
                             <div class="bg-blue-50 p-6 rounded-2xl border border-blue-200 mt-4 text-center shadow-sm">
                                 <p class="text-sm font-bold text-slate-800">🚌 롯데월드 종료 후 전용버스 이동</p>
@@ -351,6 +396,13 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <button onclick="window.print()" class="inline-flex items-center justify-center gap-2 bg-[#004098] text-white px-6 py-3 rounded-xl text-sm font-bold shadow-md hover:bg-[#002d6b] transition w-full sm:w-auto">
+                        <i class="fa-solid fa-print"></i> 일정표 인쇄하기
+                    </button>
+                    <p class="text-xs text-slate-500 text-center sm:text-left">A4 인쇄·PDF 저장용 · 안내 초안</p>
                 </div>
             </div>
         </div>
